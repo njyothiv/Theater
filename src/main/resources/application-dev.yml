@@ -2,7 +2,7 @@ movies:
     screens:  
       -   title: Turning Red
           description: About Turning Red movie
-          runningTime: 125
+          runningTime: 85
           ticketPrice: 11
           specialCode: 0 
           movieSequence: 
