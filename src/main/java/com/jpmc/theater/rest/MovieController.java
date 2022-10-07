@@ -1,4 +1,4 @@
-package com.jpmc.theater.controller;
+package com.jpmc.theater.rest;
 
 import java.util.List;
 import java.util.UUID;
