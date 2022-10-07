@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
-public class MovieController {
+public class MovieRestController {
 	
 	@Autowired
 	IMovieService movieSvc;
@@ -28,9 +28,9 @@ public class MovieController {
 	 * This API will return list of movie schedules
 	 * @return showing list
 	 */
-	@GetMapping(value="showingschedule",
+	@GetMapping(value="/movieschedules",
 		 	 produces = {"application/json","text/plain"})
-	public ResponseEntity<List<Showing>> getShowingSchedule() {
+	public ResponseEntity<List<Showing>> getMovieSchedules() {
 	
 		return new ResponseEntity<List<Showing>>(movieSvc.getMovieSchedules(),HttpStatus.OK);			
 		
@@ -40,9 +40,9 @@ public class MovieController {
 	 * This movie will return movie schedules in the simple readble format
 	 * @return String
 	 */
-	@GetMapping(value="formattedschedule",
+	@GetMapping(value="/formattedmovieschedules",
 		 	 produces = {"application/json","text/plain"})
-	public ResponseEntity<String> getShowingSchedulePlain() {
+	public ResponseEntity<String> getFormattedMovieSchedules() {
 	
 		return new ResponseEntity<String>(movieSvc.getFormattedMovieSchedules(),HttpStatus.OK);			
 		
@@ -57,7 +57,7 @@ public class MovieController {
 	 * @param howManyTickets
 	 * @return Reservation
 	 */
-	@GetMapping(value="reserve",
+	@GetMapping(value="/reserve",
 		 	 produces = {"application/json","application/text"})
 	public ResponseEntity<Reservation> reserve(@RequestParam("customerName")String customerName, @RequestParam("showNum")Integer sequence, @RequestParam("ticketCount")Integer howManyTickets) {
 		log.debug("log controller updated application prop debug: " + customerName + " - " + sequence + " - " + howManyTickets);
