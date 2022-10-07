@@ -24,7 +24,7 @@ public class ThreaterUtil {
 		
 		sb.append("===================================================" + "\n");
 		list.forEach(s ->
-			sb.append(s.getSequenceOfTheDay() + ": " + s.getShowStartTime() + " " + s.getMovie().getTitle() + " " + s.getMovie().getRunningTime() + " $" + s.getMovie().getTicketPrice() + "\n")
+			sb.append(s.getSequenceOfTheDay() + ": " + s.getShowStartTime() + " " + s.getMovie().getTitle() + " " + s.getMovie().getRunningTime() + " $" +String.format("%,.2f", s.getMovie().getTicketPrice())  + "\n")
 		);
 		sb.append("===================================================" + "\n");
 		return sb.toString();	
