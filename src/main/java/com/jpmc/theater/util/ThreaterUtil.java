@@ -27,7 +27,6 @@ public class ThreaterUtil {
 			sb.append(s.getSequenceOfTheDay() + ": " + s.getShowStartTime() + " " + s.getMovie().getTitle() + " " + s.getMovie().getRunningTime() + " $" + s.getMovie().getTicketPrice() + "\n")
 		);
 		sb.append("===================================================" + "\n");
-		
 		return sb.toString();	
 		
 	}
