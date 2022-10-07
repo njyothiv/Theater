@@ -36,7 +36,10 @@ public class MovieController {
 		
 	}
 	
-	
+	/**
+	 * This movie will return movie schedules in the simple readble format
+	 * @return String
+	 */
 	@GetMapping(value="formattedschedule",
 		 	 produces = {"application/json","text/plain"})
 	public ResponseEntity<String> getShowingSchedulePlain() {

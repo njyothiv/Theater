@@ -29,7 +29,9 @@ public class MovieServiceImpl implements IMovieService {
 	@Autowired
 	TicketFeeCalculator ticketFeeCalculator;
 
-	
+	/**
+	 * This method returns simple formatted movie schedules 
+	 */
 	public String getFormattedMovieSchedules() {
 
 		String formattedSchedules = ThreaterUtil.printSchedule(schedulDao.getSchedules());
@@ -37,7 +39,9 @@ public class MovieServiceImpl implements IMovieService {
 
 	}
 
-	
+	/**
+	 * This method returns list of movies along with their schedules
+	 */
 	public List<Showing> getMovieSchedules() {
 
 		return schedulDao.getSchedules();

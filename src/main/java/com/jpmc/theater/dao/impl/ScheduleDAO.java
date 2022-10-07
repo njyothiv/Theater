@@ -53,8 +53,8 @@ public class ScheduleDAO implements IScheduleDAO {
 			log.info("movieObj name: " + dailyShows.toString());
 			
 			for(int i=0; i < dailyShows.getMovieSequence().size(); i++) {
-				String runTime = ThreaterUtil.humanReadableFormat(Duration.ofMinutes(Long.valueOf(dailyShows.getRunningTime())));
-				LocalTime localTime = LocalTime.parse(dailyShows.getMovieTimings().get(i));
+				String runTime = ThreaterUtil.humanReadableFormat(Duration.ofMinutes(Long.valueOf(dailyShows.getRunningTime())));//run time in readable format
+				LocalTime localTime = LocalTime.parse(dailyShows.getMovieTimings().get(i)); //Gives Local time
 								
 				//creation of showing object
 				showingObj = Showing.builder()

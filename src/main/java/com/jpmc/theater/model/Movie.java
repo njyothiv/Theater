@@ -11,5 +11,4 @@ public class Movie {
     private String runningTime;
     private Double ticketPrice;
     private String specialCode;
-
 }
