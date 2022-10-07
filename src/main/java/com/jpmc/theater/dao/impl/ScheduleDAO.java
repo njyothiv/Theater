@@ -1,5 +1,6 @@
 package com.jpmc.theater.dao.impl;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import com.jpmc.theater.model.Movie;
 import com.jpmc.theater.model.Showing;
 import com.jpmc.theater.util.LocalDateProvider;
 import com.jpmc.theater.util.MovieSequenceComparator;
+import com.jpmc.theater.util.ThreaterUtil;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -51,35 +53,26 @@ public class ScheduleDAO implements IScheduleDAO {
 			log.info("movieObj name: " + dailyShows.toString());
 			
 			for(int i=0; i < dailyShows.getMovieSequence().size(); i++) {
-				
-				Integer hour = Integer.valueOf(dailyShows.getRunningTime())/60;
-				Integer remainingMinutes = Integer.valueOf(dailyShows.getRunningTime())%60;
-				
-				StringBuilder sbShowLength = new StringBuilder()
-									.append(hour)
-									.append(hour==1?" hour " : " hours ")
-									.append(remainingMinutes)
-									.append(remainingMinutes==1?" minute" : " minutes");
-				
+				String runTime = ThreaterUtil.humanReadableFormat(Duration.ofMinutes(Long.valueOf(dailyShows.getRunningTime())));
+				LocalTime localTime = LocalTime.parse(dailyShows.getMovieTimings().get(i));
+								
 				//creation of showing object
 				showingObj = Showing.builder()
 							.movie(Movie.builder()
 									.title(dailyShows.getTitle())
 									.description(dailyShows.getDescription())
 									.specialCode(dailyShows.getSpecialCode())
-									.runningTime(sbShowLength.toString())
+									.runningTime(runTime)
 									.ticketPrice(Double.valueOf(dailyShows.getTicketPrice()))
 									.build())
 							.sequenceOfTheDay(Integer.valueOf(dailyShows.getMovieSequence().get(i)))
-							.showStartTime(LocalDateTime.of(provider.currentDate(), LocalTime.of(Integer.valueOf(dailyShows.getMovieTimings().get(i).substring(0,2)), Integer.valueOf(dailyShows.getMovieTimings().get(i).substring(2)))))
+							.showStartTime(LocalDateTime.of(provider.currentDate(), localTime))
 							.build();
 				showSchedules.add(showingObj);
 			}
 									
 		}
-		
-		//log.info("showSchedules size b4 sort: " + showSchedules.size());
-		
+				
 		Collections.sort(showSchedules,new MovieSequenceComparator());
 		
 		log.info("showSchedules size after sort: " + showSchedules.size());

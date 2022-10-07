@@ -37,11 +37,11 @@ public class MovieController {
 	}
 	
 	
-	@GetMapping(value="showingscheduleplain",
+	@GetMapping(value="formattedschedule",
 		 	 produces = {"application/json","text/plain"})
 	public ResponseEntity<String> getShowingSchedulePlain() {
 	
-		return new ResponseEntity<String>(movieSvc.getMovieSchedules().toString(),HttpStatus.OK);			
+		return new ResponseEntity<String>(movieSvc.getFormattedMovieSchedules(),HttpStatus.OK);			
 		
 	}
 	

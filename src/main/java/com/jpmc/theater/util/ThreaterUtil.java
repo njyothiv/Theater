@@ -1,7 +1,7 @@
 package com.jpmc.theater.util;
 
 import java.time.Duration;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import com.jpmc.theater.model.Showing;
@@ -12,24 +12,24 @@ import com.jpmc.theater.model.Showing;
  * This is utility class contains common utility/supporting methods that can be used across the project.
  */
 public class ThreaterUtil {
-	
-	private LocalDateProvider provider = LocalDateProvider.singleton();
-	
-	public ThreaterUtil() {
-		
-	}
-	
+			
 	/**
 	 * print the movie schedules in readable format
-	 * @param schedule
+	 * @param list
 	 */
-	public void printSchedule(ArrayList<Showing> schedule) {
-		System.out.println(provider.currentDate());
-		System.out.println("===================================================");
-		schedule.forEach(s ->
-		     System.out.println(s.getSequenceOfTheDay() + ": " + s.getShowStartTime() + " " + s.getMovie().getTitle() + " " + humanReadableFormat(Duration.parse(s.getMovie().getRunningTime())) + " $" + s.getMovie().getTicketPrice())
+	public static String printSchedule(List<Showing> list) {
+		StringBuffer sb = new StringBuffer();
+		
+		sb.append(LocalDateProvider.singleton().currentDate() + "\n");
+		
+		sb.append("===================================================" + "\n");
+		list.forEach(s ->
+			sb.append(s.getSequenceOfTheDay() + ": " + s.getShowStartTime() + " " + s.getMovie().getTitle() + " " + s.getMovie().getRunningTime() + " $" + s.getMovie().getTicketPrice() + "\n")
 		);
-		System.out.println("===================================================");		
+		sb.append("===================================================" + "\n");
+		
+		return sb.toString();	
+		
 	}
 	
 	/**
@@ -37,11 +37,11 @@ public class ThreaterUtil {
 	 * @param duration
 	 * @return
 	 */
-	public String humanReadableFormat(Duration duration) {
+	public static String humanReadableFormat(Duration duration) {
         long hour = duration.toHours();
         long remainingMin = duration.toMinutes() - TimeUnit.HOURS.toMinutes(duration.toHours());
 
-        return String.format("(%s hour%s %s minute%s)", hour, handlePlural(hour), remainingMin, handlePlural(remainingMin));
+        return String.format("%s hour%s %s minute%s", hour, handlePlural(hour), remainingMin, handlePlural(remainingMin));
     }
 	
 	/**
@@ -49,7 +49,7 @@ public class ThreaterUtil {
 	 * @param value
 	 * @return
 	 */
-	private String handlePlural(long value) {        
+	private static String handlePlural(long value) {        
         return value==1?"":"s";
     }
 }

@@ -2,7 +2,7 @@ movies:
     screens:  
       -   title: Turning Red
           description: About Turning Red movie
-          runningTime: 85
+          runningTime: 125
           ticketPrice: 11
           specialCode: 0 
           movieSequence: 
@@ -10,9 +10,9 @@ movies:
             - 4
             - 7
           movieTimings: 
-            - 0900
-            - 1430
-            - 1930
+            - '09:00'
+            - '14:30'
+            - '19:30'
       -   title: Spider-Man NoWay Home
           description: Spider-Man NoWay Home
           runningTime: 90
@@ -23,9 +23,9 @@ movies:
             - 5
             - 8
           movieTimings: 
-            - 1100
-            - 1610
-            - 2110
+            - '11:00'
+            - '16:10'
+            - '21:10'
       -   title: The Batman
           description: About Bat Man adventure
           runningTime: 95
@@ -36,6 +36,6 @@ movies:
             - 6
             - 9
           movieTimings: 
-            - 1250
-            - 1750
-            - 2300       
+            - '12:50'
+            - '17:50'
+            - '23:00'       

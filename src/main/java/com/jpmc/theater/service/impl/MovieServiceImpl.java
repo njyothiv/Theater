@@ -13,6 +13,7 @@ import com.jpmc.theater.model.Customer;
 import com.jpmc.theater.model.Reservation;
 import com.jpmc.theater.model.Showing;
 import com.jpmc.theater.service.IMovieService;
+import com.jpmc.theater.util.ThreaterUtil;
 import com.jpmc.theater.util.TicketFeeCalculator;
 
 import lombok.extern.slf4j.Slf4j;
@@ -24,9 +25,19 @@ public class MovieServiceImpl implements IMovieService {
 	@Autowired
 	ScheduleDAO schedulDao;
 	
+	
 	@Autowired
 	TicketFeeCalculator ticketFeeCalculator;
 
+	
+	public String getFormattedMovieSchedules() {
+
+		String formattedSchedules = ThreaterUtil.printSchedule(schedulDao.getSchedules());
+		return formattedSchedules;
+
+	}
+
+	
 	public List<Showing> getMovieSchedules() {
 
 		return schedulDao.getSchedules();

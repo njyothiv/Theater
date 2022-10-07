@@ -11,4 +11,6 @@ public interface IMovieService {
 	public Reservation reserve(Customer customer, int sequence, int howManyTickets);
 	
 	public List<Showing> getMovieSchedules();
+	
+	public String getFormattedMovieSchedules();
 }
