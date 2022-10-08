@@ -17,7 +17,9 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import com.jpmc.theater.model.Customer;
 import com.jpmc.theater.model.Movie;
+import com.jpmc.theater.model.Reservation;
 import com.jpmc.theater.model.Showing;
 import com.jpmc.theater.service.IMovieService;
 
@@ -37,12 +39,12 @@ public class MovieRestControllerTest {
 	private MockMvc mockMvc;
 
 	Movie spiderMan = new Movie("Toys2", "Toys2", "90", 11.5, "1");
-	List<Showing> moviSchedules = List.of(new Showing(spiderMan, 2, LocalDateTime.now()));
+	List<Showing> movieSchedules = List.of(new Showing(spiderMan, 2, LocalDateTime.now()));
 
 	@Test
 	public void testGetMovieSchedules() throws Exception {
 
-		when(movieSvc.getMovieSchedules()).thenReturn(moviSchedules);
+		when(movieSvc.getMovieSchedules()).thenReturn(movieSchedules);
 
 		MockHttpServletRequestBuilder requestBuilder =  MockMvcRequestBuilders.get("/movieschedules");
 		
@@ -57,5 +59,54 @@ public class MovieRestControllerTest {
 		assertEquals(200, status);
 		
 	}
+	
+	@Test
+	public void testGetFormattedMovieSchedules() throws Exception {
+
+		when(movieSvc.getFormattedMovieSchedules()).thenReturn("1:Toys2 10.5");
+
+		MockHttpServletRequestBuilder requestBuilder =  MockMvcRequestBuilders.get("/formattedmovieschedules");
+		
+		ResultActions perform = mockMvc.perform(requestBuilder);
+		 
+		MvcResult mvcResult = perform.andReturn();
+		
+		MockHttpServletResponse response = mvcResult.getResponse();
+		
+		int status = response.getStatus();
+		
+		assertEquals(200, status);
+		
+	}
+	
+	
+	@Test
+	public void testReserve() throws Exception {
+		
+		Customer cust1 = new Customer("1","Jyothi"); 
+		
+		Movie spiderMan = new Movie("Toys2", "Toys2", "90", 10.0, "1");
+		
+		Showing show1 = new Showing(spiderMan, 2, LocalDateTime.now()); 
+
+		when(movieSvc.reserve(cust1, 2, 5)).thenReturn(new Reservation(cust1,show1,5,50,5,45));
+				
+		MockHttpServletRequestBuilder requestBuilder =  MockMvcRequestBuilders.get("/reserve")
+														.param("customerName", "Jyothi")
+											            .param("showNum", "1")
+											            .param("ticketCount", "5");
+		
+		ResultActions perform = mockMvc.perform(requestBuilder);
+		 
+		MvcResult mvcResult = perform.andReturn();
+		
+		MockHttpServletResponse response = mvcResult.getResponse();
+		
+		int status = response.getStatus();
+		
+		assertEquals(200, status);
+		
+	}
+	
 
 }

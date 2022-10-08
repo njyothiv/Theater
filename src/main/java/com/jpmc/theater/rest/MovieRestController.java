@@ -58,7 +58,7 @@ public class MovieRestController {
 	 * @return Reservation
 	 */
 	@GetMapping(value="/reserve",
-		 	 produces = {"application/json","application/text"})
+		 	 produces = {"application/json"})
 	public ResponseEntity<Reservation> reserve(@RequestParam("customerName")String customerName, @RequestParam("showNum")Integer sequence, @RequestParam("ticketCount")Integer howManyTickets) {
 		log.debug("log controller updated application prop debug: " + customerName + " - " + sequence + " - " + howManyTickets);
 		Customer custObj = new Customer(UUID.randomUUID().toString(), customerName);
