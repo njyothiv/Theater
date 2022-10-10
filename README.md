@@ -1,11 +1,11 @@
 # Theater
-This is theater project to get movie schedules for the day like movie name, time, ticket price and show sequence for the given day. It also has API call to reserve the tickets.
-
+This is theater project to get movie schedules for the day like movie name, time, ticket price and show sequence for the given day in json format and simple text format. It also has API call to reserve the movie tickets by providing cutomer details, show number and number of the tickets.
 1. This application developed using SpringBoot Microservices Web MVC framework, Lombok and DevTools.
-2. Rest API has 3 end points (Assuming this service running in Tomcat with default port number: 8080
+2. Rest API has 3 end points as give below (Assuming this service running in Tomcat server with default port number: 8080)
    * To get movie schedules in json format: http://localhost:8080/movieschedules
    * To view the movie schedules in the simple text readble format: http://localhost:8080/formattedmovieschedules
    * To make resrvation for the movie for particluar show: http://localhost:8080/reserve?customerName=Supriya&showNum=1&ticketCount=3
+      # API End point Inputs: Customer name, show number and numbe of the tcikets  
       => 20% discount for the special movie (Need to setup movies with special code:1 to categorize as special movie)    
       =>  $3 discount for the movie showing 1st of the day
       => $2 discount for the movie showing 2nd of the day
