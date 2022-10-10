@@ -5,7 +5,7 @@ This is theater project to get movie schedules for the day like movie name, time
    * To get movie schedules in json format: http://localhost:8080/movieschedules
    * To view the movie schedules in the simple text readble format: http://localhost:8080/formattedmovieschedules
    * To make resrvation for the movie for particluar show: http://localhost:8080/reserve?customerName=Supriya&showNum=1&ticketCount=3
-      # API End point Inputs: Customer name, show number and numbe of the tcikets  
+      ** API End point Inputs: Customer name, show number and numbe of the tcikets  
       => 20% discount for the special movie (Need to setup movies with special code:1 to categorize as special movie)    
       =>  $3 discount for the movie showing 1st of the day
       => $2 discount for the movie showing 2nd of the day
