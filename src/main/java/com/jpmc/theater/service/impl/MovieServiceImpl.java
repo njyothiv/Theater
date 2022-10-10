@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jpmc.theater.constants.ApplicationConstants;
-import com.jpmc.theater.dao.impl.ScheduleDAO;
+import com.jpmc.theater.dao.IScheduleDAO;
 import com.jpmc.theater.exception.InvalidSequenceException;
 import com.jpmc.theater.exception.InvalidTicketCountException;
 import com.jpmc.theater.model.Customer;
@@ -23,12 +23,17 @@ import lombok.extern.slf4j.Slf4j;
 public class MovieServiceImpl implements IMovieService {
 
 	@Autowired
-	ScheduleDAO schedulDao;
+	IScheduleDAO schedulDao;
 	
 	
 	@Autowired
 	TicketFeeCalculator ticketFeeCalculator;
 
+	
+	public MovieServiceImpl(IScheduleDAO schedulDao) {
+		this.schedulDao = schedulDao;
+	}
+	
 	/**
 	 * This method returns simple formatted movie schedules 
 	 */

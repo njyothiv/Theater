@@ -2,7 +2,6 @@ package com.jpmc.theater.util;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -78,7 +77,10 @@ public class TicketFeeCalculator {
         List<Double> discountList = Arrays.asList(specialDiscount, sequenceDiscount,timeDiscount, dayDiscount);
         log.info("All discounts : "  + specialDiscount + " - " + sequenceDiscount + " - "  + timeDiscount + " - "  + dayDiscount);
         
-        return Collections.max(discountList);
+               
+        //return Collections.max(discountList);
+        
+        return discountList.stream().max(Double::compare).get();
        		
 	}
 	

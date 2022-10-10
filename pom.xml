@@ -21,7 +21,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -47,15 +46,27 @@
 		    <groupId>io.springfox</groupId>
 		    <artifactId>springfox-swagger-ui</artifactId>
 		    <version>2.8.0</version>
-		</dependency>
-			
+		</dependency>		
 		<dependency>
 	        <groupId>javax.xml.bind</groupId>
 	        <artifactId>jaxb-api</artifactId>
 	        <version>2.3.0</version>
-	    </dependency>
+	    </dependency>  
+	    <!-- https://mvnrepository.com/artifact/junit/junit -->
+		<dependency>
+		    <groupId>junit</groupId>
+		    <artifactId>junit</artifactId>
+		    <version>4.12</version>
+		    <scope>test</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
+		<dependency>
+		    <groupId>org.mockito</groupId>
+		    <artifactId>mockito-core</artifactId>
+		    <version>4.8.0</version>
+		    <scope>test</scope>
+		</dependency>		
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -64,8 +75,11 @@
 				<version>0.8.2</version>
 				<configuration>
 					<excludes>
-						<exclude>com/jpmc/theater/service/**</exclude>
-						<exclude>com/jpmc/theater/dao/**</exclude>
+						<exclude>com/jpmc/theater/util/MovieSequenceComparator.class</exclude>
+						<exclude>com/jpmc/theater/util/LocalDateProvider.class</exclude>
+						<exclude>com/jpmc/theater/exception/**</exclude>
+						<exclude>com/jpmc/theater/service/**.class</exclude>
+						<exclude>com/jpmc/theater/dao/**.class</exclude>
 						<exclude>com/jpmc/theater/constants/**</exclude>
 						<exclude>com/jpmc/theater/model/**</exclude>
 						<exclude>com/jpmc/theater/config/**</exclude>
@@ -98,6 +112,10 @@
 						</exclude>
 					</excludes>
 				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.22.2</version>
 			</plugin>
 		</plugins>
 	</build>
