@@ -2,6 +2,9 @@ package com.jpmc.theater.util;
 
 import java.time.LocalDate;
 
+/*
+ * This is to return singleton for Local Date
+ */
 public class LocalDateProvider {
 	
 	/**

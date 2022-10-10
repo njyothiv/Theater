@@ -22,9 +22,7 @@ public class TheaterUtil {
 	 */
 	public String printSchedule(List<Showing> list) {
 		StringBuffer sb = new StringBuffer();
-		
 		sb.append(LocalDateProvider.singleton().currentDate() + "\n");
-		
 		sb.append("===================================================" + "\n");
 		list.forEach(s ->
 			sb.append(s.getSequenceOfTheDay() + ": " + s.getShowStartTime() + " " + s.getMovie().getTitle() + " " + s.getMovie().getRunningTime() + " $" +String.format("%,.2f", s.getMovie().getTicketPrice())  + "\n")
@@ -42,7 +40,6 @@ public class TheaterUtil {
 	public static String humanReadableFormat(Duration duration) {
         long hour = duration.toHours();
         long remainingMin = duration.toMinutes() - TimeUnit.HOURS.toMinutes(duration.toHours());
-
         return String.format("%s hour%s %s minute%s", hour, handlePlural(hour), remainingMin, handlePlural(remainingMin));
     }
 	

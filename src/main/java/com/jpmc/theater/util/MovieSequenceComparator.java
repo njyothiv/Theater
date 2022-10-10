@@ -4,6 +4,9 @@ import java.util.Comparator;
 
 import com.jpmc.theater.model.Showing;
 
+/*
+ * compares Showing objects based on the the movie sequence  
+ */
 public class MovieSequenceComparator implements Comparator<Showing> {
   
 	    public int compare(Showing s1, Showing s2)
