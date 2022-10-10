@@ -54,12 +54,7 @@ public class TicketFeeCalculator {
         } else if (showSequence == 2) {
             sequenceDiscount = 2; // $2 discount for 2nd show
         } 
-
-               
-        log.info("Local date and time: " + lt);
-        log.info("Local hour: " + lt.getHour());
-        log.info("Local minute: " + lt.getMinute());
-        
+       
         //time based discount
         int hourOfTheShow = lt.getHour();
         double timeDiscount = 0;
