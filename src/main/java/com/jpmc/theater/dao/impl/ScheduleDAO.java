@@ -17,7 +17,7 @@ import com.jpmc.theater.model.Movie;
 import com.jpmc.theater.model.Showing;
 import com.jpmc.theater.util.LocalDateProvider;
 import com.jpmc.theater.util.MovieSequenceComparator;
-import com.jpmc.theater.util.ThreaterUtil;
+import com.jpmc.theater.util.TheaterUtil;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -53,7 +53,7 @@ public class ScheduleDAO implements IScheduleDAO {
 			log.info("movieObj name: " + dailyShows.toString());
 			
 			for(int i=0; i < dailyShows.getMovieSequence().size(); i++) {
-				String runTime = ThreaterUtil.humanReadableFormat(Duration.ofMinutes(Long.valueOf(dailyShows.getRunningTime())));//run time in readable format
+				String runTime = TheaterUtil.humanReadableFormat(Duration.ofMinutes(Long.valueOf(dailyShows.getRunningTime())));//run time in readable format
 				LocalTime localTime = LocalTime.parse(dailyShows.getMovieTimings().get(i)); //Gives Local time
 								
 				//creation of showing object
@@ -74,8 +74,6 @@ public class ScheduleDAO implements IScheduleDAO {
 		}
 				
 		Collections.sort(showSchedules,new MovieSequenceComparator());
-		
-		log.info("showSchedules size after sort: " + showSchedules.size());
 		
 		return showSchedules;
 				

@@ -4,53 +4,61 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.jpmc.theater.dao.impl.ScheduleDAO;
 import com.jpmc.theater.model.Movie;
 import com.jpmc.theater.model.Showing;
 
-import lombok.extern.slf4j.Slf4j;
-
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class TicketFeeCalculatorTest {
+	
 	@InjectMocks
-	TicketFeeCalculator ticketFeeCalc = new TicketFeeCalculator();
+	private TicketFeeCalculator ticketFeeCalc;
 	
-	public TicketFeeCalculatorTest() {
+	@Mock private ScheduleDAO mockDao;
+	@Mock private TicketFeeCalculator ticketFeeCalculator;
+	@Mock private TheaterUtil threaterUtil;
+	
+	@Before
+	public void init() {
+		MockitoAnnotations.openMocks(this);	
 	}
-	
+		
 	/**
 	 * To test special code discount scenario
 	 */
 	@Test
 	public void testCalculateAdjustedTicketFeeSplCode() {
 		
-		//ticketFeeCalc = new TicketFeeCalculator();
-		
-		Movie spiderMan = new Movie("Toys2", "Toys2", "90", 11.5, "1");
-
-		LocalDateTime lt = LocalDateTime.of(2022, 10, 8, 10, 00);	
-
-		Showing showing = new Showing(spiderMan, 2, lt);
-		
-		System.out.println("ticketFeeCalc: " + ticketFeeCalc);
-
+		Movie spiderMan = Movie.builder()
+				.title("Toys2")
+				.description("Toys 2")
+				.runningTime("90")
+				.ticketPrice(11.50)
+				.specialCode("1")
+				.build();
+		LocalDateTime lt = LocalDateTime.of(2022, 10, 8, 10, 00);		
+		Showing showing = Showing.builder()
+						  .movie(spiderMan)
+						  .sequenceOfTheDay(2)
+						  .showStartTime(lt)
+						  .build();
 		Double adjTickeFee =  ticketFeeCalc.calculateAdjustedTicketFee(showing);
-		
 		assertEquals(9.2, adjTickeFee,0.001);
-		
 	}
+	
 	/**
-	 * To test 2nd show discount scenario
+	 * To test 1st show discount scenario
 	 */
 	@Test
 	public void testCalculateAdjustedTicketFeeFirstShow() {
-		
-		//ticketFeeCalc = new TicketFeeCalculator();
-		
 		Movie spiderMan = Movie.builder()
 							.title("Toys2")
 							.description("Toys 2")
@@ -58,18 +66,14 @@ public class TicketFeeCalculatorTest {
 							.ticketPrice(10.00)
 							.specialCode("0")
 							.build();
-				
-
 		LocalDateTime lt = LocalDateTime.of(2022, 10, 8, 10, 00);	
-
-		Showing showing = new Showing(spiderMan, 1, lt);
-
-		System.out.println("ticketFeeCalc: " + ticketFeeCalc);
-		
+		Showing showing = Showing.builder()
+				  .movie(spiderMan)
+				  .sequenceOfTheDay(1)
+				  .showStartTime(lt)
+				  .build();		
 		Double adjTickeFee =  ticketFeeCalc.calculateAdjustedTicketFee(showing);
-		
 		assertEquals(7, adjTickeFee,0.001);
-		
 	}
 	
 	/**
@@ -78,70 +82,63 @@ public class TicketFeeCalculatorTest {
 	@Test
 	public void testCalculateAdjustedTicketFeeSecondShow() {
 		
-		//ticketFeeCalc = new TicketFeeCalculator();
-		
-		Movie spiderMan = new Movie("Toys2", "Toys2", "90", 11.5, "0");
-
+		Movie spiderMan = Movie.builder()
+				.title("Toys2")
+				.description("Toys 2")
+				.runningTime("90")
+				.ticketPrice(11.50)
+				.specialCode("0")
+				.build();
 		LocalDateTime lt = LocalDateTime.of(2022, 10, 8, 10, 00);	
-
-		Showing showing = new Showing(spiderMan, 2, lt);
-
-		System.out.println("ticketFeeCalc: " + ticketFeeCalc);
-		
+		Showing showing = Showing.builder()
+			  .movie(spiderMan)
+			  .sequenceOfTheDay(2)
+			  .showStartTime(lt)
+			  .build();		
 		Double adjTickeFee =  ticketFeeCalc.calculateAdjustedTicketFee(showing);
-		
 		assertEquals(9.5, adjTickeFee,0.001);		
 	}
 
 	
 	/**
-	 * To test 2nd show discount scenario
+	 * To test show discount based on time of the day 
 	 */
 	@Test
-	public void testCalculateAdjustedTicketFeeTimeShow() {
+	public void testCalculateAdjustedTicketFeeTimeShow() {		
 		
-		//ticketFeeCalc = new TicketFeeCalculator();
-		
-		Movie spiderMan = new Movie("Toys2", "Toys2", "90", 10.0, "0");
-
+		Movie spiderMan = Movie.builder()
+				.title("Toys2")
+				.description("Toys 2")
+				.runningTime("90")
+				.ticketPrice(10.00)
+				.specialCode("0")
+				.build();
 		LocalDateTime lt = LocalDateTime.of(2022, 10, 8, 11, 30);	
-
-		Showing showing = new Showing(spiderMan, 4, lt);
-
-		System.out.println("ticketFeeCalc: " + ticketFeeCalc);
-		
+		Showing showing = Showing.builder()
+			  .movie(spiderMan)
+			  .sequenceOfTheDay(4)
+			  .showStartTime(lt)
+			  .build();		
 		Double adjTickeFee =  ticketFeeCalc.calculateAdjustedTicketFee(showing);
-		
 		assertEquals(7.5, adjTickeFee,0.001);		
 	}
 	
 	/**
-	 * To test 2nd show discount scenario
+	 * To test show discount based on 7th day of the monthscenario
 	 */
 	@Test
 	public void testCalculateAdjustedTicketFeeSeventhDayShow() {
-		
-		//ticketFeeCalc = new TicketFeeCalculator();
-		
 		Movie spiderMan = Movie.builder()
 							.title("Toys2")
 							.description("Toys 2")
 							.runningTime("90")
 							.ticketPrice(10.00)
 							.specialCode("0")
-							.build();
-				
-
+							.build();			
 		LocalDateTime lt = LocalDateTime.of(2022, 10, 7, 16, 30);	
-
 		Showing showing = new Showing(spiderMan, 5, lt);
-
-		System.out.println("ticketFeeCalc: " + ticketFeeCalc);
-		
 		Double adjTickeFee =  ticketFeeCalc.calculateAdjustedTicketFee(showing);
-		
 		assertEquals(9, adjTickeFee,0.001);
-		
 	}
 	
 }

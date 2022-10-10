@@ -4,6 +4,8 @@ import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.springframework.stereotype.Component;
+
 import com.jpmc.theater.model.Showing;
 
 /**
@@ -11,13 +13,14 @@ import com.jpmc.theater.model.Showing;
  * @author Jyothi
  * This is utility class contains common utility/supporting methods that can be used across the project.
  */
-public class ThreaterUtil {
+@Component
+public class TheaterUtil {
 			
 	/**
 	 * print the movie schedules in readable format
 	 * @param list
 	 */
-	public static String printSchedule(List<Showing> list) {
+	public String printSchedule(List<Showing> list) {
 		StringBuffer sb = new StringBuffer();
 		
 		sb.append(LocalDateProvider.singleton().currentDate() + "\n");

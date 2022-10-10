@@ -13,7 +13,7 @@ import com.jpmc.theater.model.Customer;
 import com.jpmc.theater.model.Reservation;
 import com.jpmc.theater.model.Showing;
 import com.jpmc.theater.service.IMovieService;
-import com.jpmc.theater.util.ThreaterUtil;
+import com.jpmc.theater.util.TheaterUtil;
 import com.jpmc.theater.util.TicketFeeCalculator;
 
 import lombok.extern.slf4j.Slf4j;
@@ -28,19 +28,19 @@ public class MovieServiceImpl implements IMovieService {
 	
 	@Autowired
 	TicketFeeCalculator ticketFeeCalculator;
+	
+	@Autowired
+	TheaterUtil theaterutil;
 
-	
-	public MovieServiceImpl(IScheduleDAO schedulDao) {
-		this.schedulDao = schedulDao;
-	}
-	
+
 	/**
 	 * This method returns simple formatted movie schedules 
 	 */
 	public String getFormattedMovieSchedules() {
-
-		String formattedSchedules = ThreaterUtil.printSchedule(schedulDao.getSchedules());
-		return formattedSchedules;
+		
+		List<Showing> showSchedules=  schedulDao.getSchedules();
+	
+		return theaterutil.printSchedule(showSchedules);
 
 	}
 
@@ -64,7 +64,7 @@ public class MovieServiceImpl implements IMovieService {
 		
 		List<Showing> schedules = schedulDao.getSchedules();
 					
-		if(sequence > schedules.size()) { throw new InvalidSequenceException(ApplicationConstants.INVALID_SHOW_SEQUENCE,"This show is not available for the day");} 
+		if(sequence == 0 || sequence > schedules.size()) { throw new InvalidSequenceException(ApplicationConstants.INVALID_SHOW_SEQUENCE,"This show is not available for the day");} 
 		
 		if(howManyTickets==0) { throw new InvalidTicketCountException(ApplicationConstants.INVALID_TICKET_COUNT,"Please enter valid ticket count");} 
 		
