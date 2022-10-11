@@ -5,6 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+/*
+ * Global Exception to handle given exceptions across the project 
+ */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 	
@@ -14,11 +17,11 @@ public class GlobalExceptionHandler {
 
 	@ExceptionHandler(value= {InvalidSequenceException.class})
 	public ResponseEntity<ApiError> handleInvalidSequenceException(InvalidSequenceException ise) {
-		expMsg = ise.getExp();
+		expMsg = ise.getExpMsg();
 		expCode = ise.getExpCode();
 		
 		apiError = new ApiError(expMsg,expCode);
-		return new ResponseEntity<ApiError> (apiError, HttpStatus.BAD_REQUEST);	
+		return new ResponseEntity<> (apiError, HttpStatus.BAD_REQUEST);	
 	}
 	
 	
@@ -28,6 +31,6 @@ public class GlobalExceptionHandler {
 		expCode = ise.getExpCode();
 		
 	    apiError = new ApiError(expMsg,expCode);
-		return new ResponseEntity<ApiError> (apiError, HttpStatus.BAD_REQUEST);	
+		return new ResponseEntity<> (apiError, HttpStatus.BAD_REQUEST);	
 	}
 }

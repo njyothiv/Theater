@@ -32,21 +32,16 @@ public class ScheduleDAO implements IScheduleDAO {
 	
 	@Autowired
 	private MovieConfig movieConfig;
-	
-		
-	private List<Showing> showSchedules; 
-	private LocalDateProvider provider;
-	
 	 
 	/**
 	 * This methods gets data from configuration file in the form of DailyShows object and loads to showing schedules list
 	 * @return List of Schedules
 	 */
 	public List<Showing> getSchedules() {
-		
+			
 		log.info("movie config : screens: " + movieConfig.getScreens());
-		showSchedules = new ArrayList<>();			
-		provider = LocalDateProvider.singleton();
+		List<Showing> showSchedules = new ArrayList<>();			
+		LocalDateProvider provider = LocalDateProvider.singleton();
 		
 		for(DailyShows dailyShows:movieConfig.getScreens()) {
 			Showing showingObj = null;		

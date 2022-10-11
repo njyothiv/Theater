@@ -32,7 +32,7 @@ public class MovieRestController {
 		 	 produces = {"application/json","text/plain"})
 	public ResponseEntity<List<Showing>> getMovieSchedules() {
 	
-		return new ResponseEntity<List<Showing>>(movieSvc.getMovieSchedules(),HttpStatus.OK);			
+		return new ResponseEntity<>(movieSvc.getMovieSchedules(),HttpStatus.OK);			
 		
 	}
 	
@@ -44,7 +44,7 @@ public class MovieRestController {
 		 	 produces = {"application/json","text/plain"})
 	public ResponseEntity<String> getFormattedMovieSchedules() {
 	
-		return new ResponseEntity<String>(movieSvc.getFormattedMovieSchedules(),HttpStatus.OK);			
+		return new ResponseEntity<>(movieSvc.getFormattedMovieSchedules(),HttpStatus.OK);			
 		
 	}
 	
@@ -62,7 +62,7 @@ public class MovieRestController {
 	public ResponseEntity<Reservation> reserve(@RequestParam("customerName")String customerName, @RequestParam("showNum")Integer sequence, @RequestParam("ticketCount")Integer howManyTickets) {
 		log.debug("log controller updated application prop debug: " + customerName + " - " + sequence + " - " + howManyTickets);
 		Customer custObj = new Customer(UUID.randomUUID().toString(), customerName);
-		return new ResponseEntity<Reservation>(movieSvc.reserve(custObj,sequence,howManyTickets),HttpStatus.OK);
+		return new ResponseEntity<>(movieSvc.reserve(custObj,sequence,howManyTickets),HttpStatus.OK);
 	}
 
 }

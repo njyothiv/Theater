@@ -21,7 +21,7 @@ public class TheaterUtil {
 	 * @param list
 	 */
 	public String printSchedule(List<Showing> list) {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		sb.append(LocalDateProvider.singleton().currentDate() + "\n");
 		sb.append("===================================================" + "\n");
 		list.forEach(s ->

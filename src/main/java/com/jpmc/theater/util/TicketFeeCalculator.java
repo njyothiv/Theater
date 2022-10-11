@@ -71,10 +71,7 @@ public class TicketFeeCalculator {
         // biggest discount wins
         List<Double> discountList = Arrays.asList(specialDiscount, sequenceDiscount,timeDiscount, dayDiscount);
         log.info("All discounts : "  + specialDiscount + " - " + sequenceDiscount + " - "  + timeDiscount + " - "  + dayDiscount);
-        
-               
-        //return Collections.max(discountList);
-        
+           
         return discountList.stream().max(Double::compare).get();
        		
 	}

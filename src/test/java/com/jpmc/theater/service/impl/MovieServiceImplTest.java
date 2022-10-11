@@ -83,10 +83,9 @@ public class MovieServiceImplTest {
 	public void testReserve() {	
 		Mockito.when(ticketFeeCalculator.calculateAdjustedTicketFee(showing)).thenReturn((double) 9);			
 		Reservation ticketReservation = mockSvc.reserve(new Customer("123","Jyothi"), 1, 4);
-				
-		assertAll(() -> assertEquals(ticketReservation.getCustomer().getName(), "Jyothi"),
-				  () -> assertEquals(ticketReservation.getTotalTicketPrice(), 40),
-				  () -> assertEquals(ticketReservation.getDiscountApplied(), 4)
+		assertAll(() -> assertEquals("Jyothi",ticketReservation.getCustomer().getName()),
+				  () -> assertEquals(40, ticketReservation.getTotalTicketPrice()),
+				  () -> assertEquals(4, ticketReservation.getDiscountApplied())
 				  );
 			
 	}
