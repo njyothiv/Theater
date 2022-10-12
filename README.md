@@ -15,7 +15,7 @@ This is theater project to get movie schedules for the day like movie name, time
 3. Initial data set-up for movies and daily showing implemneted in application-dev.yml. This implementaion separates data set-up from the business functionality. Movies/Shows changes can be updated without touching underlying java code.
 4. Implemneted exceptions using Global Exception Handler
 5. Implemneted Junit test cases using JUnit 5 and Mockito. 
-6. Analyzed test coverage using jacoco plugin and EclEmma Java Code Coverage
+6. Analyzed test coverage using EclEmma Java Code Coverage
 7. Implemneted Swagger API for documentaion and UI for user can test API calls
    * Here is the Swagger API URL: http://localhost:8080/swagger-ui.html
    Swagger UI has option to test all end points.
