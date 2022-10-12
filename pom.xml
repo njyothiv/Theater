@@ -19,8 +19,7 @@
     	<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
     	<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
     	<sonar.language>java</sonar.language>
-    	<sonar.login>admin</sonar.login>
-    	<sonar.password>sonar</sonar.password>
+    	<sonar.login>squ_d7669165cd2b6b5b47c5f0e72d9574a99dc2c5b4</sonar.login>
     	<junit.jupiter.version>5.8.2</junit.jupiter.version>
 	</properties>
 	<dependencies>
