@@ -4,7 +4,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,6 @@ import com.jpmc.theater.model.DailyShows;
 import com.jpmc.theater.model.Movie;
 import com.jpmc.theater.model.Showing;
 import com.jpmc.theater.util.LocalDateProvider;
-import com.jpmc.theater.util.MovieSequenceComparator;
 import com.jpmc.theater.util.TheaterUtil;
 
 import lombok.extern.slf4j.Slf4j;
@@ -66,10 +65,10 @@ public class ScheduleDAO implements IScheduleDAO {
 				showSchedules.add(showingObj);
 			}
 									
-		}
+		}		
 				
-		Collections.sort(showSchedules,new MovieSequenceComparator());
-		
+		showSchedules.sort(Comparator.comparing(Showing::getSequenceOfTheDay));
+			
 		return showSchedules;
 				
 	}

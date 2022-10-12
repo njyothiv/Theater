@@ -6,6 +6,10 @@ package com.jpmc.theater.constants;
  *
  */
 public class ApplicationConstants {
+	
+	private ApplicationConstants() {
+		
+	}
 	public static final int MOVIE_CODE_SPECIAL = 1;
 	public static final String INVALID_SHOW_SEQUENCE = "101";
 	public static final String INVALID_TICKET_COUNT = "102";

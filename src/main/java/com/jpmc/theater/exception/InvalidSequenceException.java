@@ -5,8 +5,8 @@ import lombok.Data;
 @Data
 public class InvalidSequenceException extends RuntimeException {
 
-	private String expMsg;
-	private String expCode;
+	private final String expMsg;
+	private final String expCode;
 		
 	public InvalidSequenceException(String expCode, String exp) {
 		super(exp);

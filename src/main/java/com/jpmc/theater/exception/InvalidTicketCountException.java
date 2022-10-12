@@ -5,8 +5,8 @@ import lombok.Data;
 @Data
 public class InvalidTicketCountException extends RuntimeException {
 
-		private String exp;
-		private String expCode;
+		private final String exp;
+		private final String expCode;
 			
 		public InvalidTicketCountException(String expCode, String exp) {
 			super(exp);

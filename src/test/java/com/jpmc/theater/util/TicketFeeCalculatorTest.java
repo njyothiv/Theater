@@ -55,7 +55,7 @@ public class TicketFeeCalculatorTest {
 	}
 	
 	/**
-	 * To test 1st show discount scenario
+	 * To test 1st show discount scenario pass sequenceOfTheDay as 1
 	 */
 	@Test
 	public void testCalculateAdjustedTicketFeeFirstShow() {
@@ -77,7 +77,7 @@ public class TicketFeeCalculatorTest {
 	}
 	
 	/**
-	 * To test 2nd show discount scenario
+	 * To test 2nd show discount scenario pass sequenceOfTheDay as 2
 	 */
 	@Test
 	public void testCalculateAdjustedTicketFeeSecondShow() {
@@ -101,7 +101,7 @@ public class TicketFeeCalculatorTest {
 
 	
 	/**
-	 * To test show discount based on time of the day 
+	 * To test show discount based on time of the day modify local time to 11.30 AM
 	 */
 	@Test
 	public void testCalculateAdjustedTicketFeeTimeShow() {		
@@ -124,7 +124,7 @@ public class TicketFeeCalculatorTest {
 	}
 	
 	/**
-	 * To test show discount based on 7th day of the monthscenario
+	 * To test show discount based on 7th day of the month scenario include the day as 7th in Local date field
 	 */
 	@Test
 	public void testCalculateAdjustedTicketFeeSeventhDayShow() {

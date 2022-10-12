@@ -3,6 +3,7 @@ package com.jpmc.theater.util;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
@@ -24,7 +25,7 @@ public class TicketFeeCalculator {
 	 */
 	public double calculateAdjustedTicketFee(Showing showing) {
 		Movie selectedMovie = showing.getMovie();
-		return Double.valueOf(selectedMovie.getTicketPrice()) - getDiscount(showing.getSequenceOfTheDay(),
+		return Double.valueOf(selectedMovie.getTicketPrice()) - calculateDiscount(showing.getSequenceOfTheDay(),
 															Integer.valueOf(selectedMovie.getSpecialCode()),
 															Double.valueOf(selectedMovie.getTicketPrice()),
 															showing.getShowStartTime());
@@ -37,7 +38,7 @@ public class TicketFeeCalculator {
 	 * @param ticketPrice
 	 * @return
 	 */
-	private double getDiscount(int showSequence, int specialCode, double ticketPrice, LocalDateTime lt) {
+	private double calculateDiscount(int showSequence, int specialCode, double ticketPrice, LocalDateTime lt) {
 		double specialDiscount = 0;
         if (ApplicationConstants.MOVIE_CODE_SPECIAL == specialCode) {
             specialDiscount = ticketPrice * 0.2;  // 20% discount for special movie
@@ -71,8 +72,10 @@ public class TicketFeeCalculator {
         // biggest discount wins
         List<Double> discountList = Arrays.asList(specialDiscount, sequenceDiscount,timeDiscount, dayDiscount);
         log.info("All discounts : "  + specialDiscount + " - " + sequenceDiscount + " - "  + timeDiscount + " - "  + dayDiscount);
-           
-        return discountList.stream().max(Double::compare).get();
+         
+        Optional<Double> maxDiscount = discountList.stream().max(Double::compare);
+        
+        return (!maxDiscount.isEmpty()) ? maxDiscount.get():0;
        		
 	}
 	

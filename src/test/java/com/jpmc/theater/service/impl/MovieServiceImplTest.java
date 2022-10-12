@@ -38,6 +38,7 @@ public class MovieServiceImplTest {
 	
 	private List<Showing> showSchedules;
 	private Showing showing;
+	Customer cust;
 	
 	@Before
 	public void init() {
@@ -61,6 +62,7 @@ public class MovieServiceImplTest {
 		showSchedules.add(showing);
 		Mockito.when(mockDao.getSchedules()).thenReturn(showSchedules);	
 		
+		cust = new Customer("123","Jyothi"); 
 	}
 	
 		
@@ -83,7 +85,8 @@ public class MovieServiceImplTest {
 	public void testReserve() {	
 		Mockito.when(ticketFeeCalculator.calculateAdjustedTicketFee(showing)).thenReturn((double) 9);			
 		Reservation ticketReservation = mockSvc.reserve(new Customer("123","Jyothi"), 1, 4);
-		assertAll(() -> assertEquals("Jyothi",ticketReservation.getCustomer().getName()),
+				
+		assertAll(() -> assertEquals("Jyothi", ticketReservation.getCustomer().getName() ),
 				  () -> assertEquals(40, ticketReservation.getTotalTicketPrice()),
 				  () -> assertEquals(4, ticketReservation.getDiscountApplied())
 				  );
@@ -98,8 +101,9 @@ public class MovieServiceImplTest {
 	    
 		Mockito.when(ticketFeeCalculator.calculateAdjustedTicketFee(showing)).thenReturn((double) 9);				
 		
+		
 		Exception exception = assertThrows(RuntimeException.class, () -> {
-			mockSvc.reserve(new Customer("123","Jyothi"), 0, 4);
+			mockSvc.reserve(cust, 0, 4);
 	    });
 
 	    String expectedMessage = "This show is not available for the day";
@@ -117,9 +121,8 @@ public class MovieServiceImplTest {
 	    
 		Mockito.when(ticketFeeCalculator.calculateAdjustedTicketFee(showing)).thenReturn((double) 9);				
 		
-		Exception exception = assertThrows(RuntimeException.class, () -> {
-			mockSvc.reserve(new Customer("123","Jyothi"), 3, 4);
-	    });
+		Exception exception = assertThrows(RuntimeException.class, () -> mockSvc.reserve(cust, 3, 4)
+	    );
 
 	    String expectedMessage = "This show is not available for the day";
 	    String actualMessage = exception.getMessage();
@@ -135,7 +138,7 @@ public class MovieServiceImplTest {
 	public void whenInvalidTktCountExpThrownZeroCount_thenAssertionSucceeds() {    
 		Mockito.when(ticketFeeCalculator.calculateAdjustedTicketFee(showing)).thenReturn((double) 9);				
 		Exception exception = assertThrows(RuntimeException.class, () -> {
-			mockSvc.reserve(new Customer("123","Jyothi"), 1, 0);
+			mockSvc.reserve(cust, 1, 0);
 	    });
 	    String expectedMessage = "Please enter valid ticket count";
 	    String actualMessage = exception.getMessage();

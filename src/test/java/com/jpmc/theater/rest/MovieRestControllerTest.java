@@ -30,7 +30,7 @@ import com.jpmc.theater.service.IMovieService;
  *
  */
 @WebMvcTest(value = MovieRestController.class)
-public class MovieRestControllerTest {
+class MovieRestControllerTest {
 
 	@MockBean
 	private IMovieService movieSvc;
@@ -42,7 +42,7 @@ public class MovieRestControllerTest {
 	List<Showing> movieSchedules = List.of(new Showing(spiderMan, 2, LocalDateTime.now()));
 
 	@Test
-	public void testGetMovieSchedules() throws Exception {
+	void testGetMovieSchedules() throws Exception {
 
 		when(movieSvc.getMovieSchedules()).thenReturn(movieSchedules);
 
@@ -61,7 +61,7 @@ public class MovieRestControllerTest {
 	}
 	
 	@Test
-	public void testGetFormattedMovieSchedules() throws Exception {
+	void testGetFormattedMovieSchedules() throws Exception {
 
 		when(movieSvc.getFormattedMovieSchedules()).thenReturn("1:Toys2 10.5");
 
@@ -81,7 +81,7 @@ public class MovieRestControllerTest {
 	
 	
 	@Test
-	public void testReserve() throws Exception {
+	void testReserve() throws Exception {
 		
 		Customer cust1 = new Customer("1","Jyothi"); 
 		
